@@ -1,0 +1,286 @@
+;
+(function ($) {
+    'use strict';
+
+    // After the DOM is ready.
+    $(function () {
+
+        var $doc = $(document);
+
+        // Sticky header on window scroll.
+        $(window).on('scroll', function (e) {
+            var $header = $('#masthead'),
+                $this = $(this),
+                headerHeight = $header.outerHeight();
+
+            if ($this.scrollTop() > headerHeight) {
+                $header.addClass('header-fixed');
+            } else {
+                $header.removeClass('header-fixed');
+            }
+
+        });
+
+        $doc.on('click', '.t404-review-button', function(e){
+            e.preventDefault();
+
+            $('.t404-review-content').slideToggle();
+        });
+
+        // Testimonials slider.
+        $('.users-feedback').slick({
+            dots: true,
+            infinite: false,
+            speed: 300,
+            arrows: false,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            responsive: [{
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                    }
+                }
+            ]
+        });
+
+        // Theme screenshot slider.
+        $('.theme-screenshot').slick({
+            dots: false,
+            autoplay: true,
+            infinite: true,
+            speed: 700,
+            arrows: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            fade: true,
+            cssEase: 'linear',
+            responsive: [{
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        infinite: true,
+                        dots: false
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        autoplay: true,
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        infinite: true,
+                        dots: false
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        autoplay: true,
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        infinite: true,
+                        dots: false
+                    }
+                }
+            ]
+        });
+
+        // Meanmenu for mobile devices.
+        if ($('.main-navigation').length) {
+            $('.main-navigation').meanmenu();
+        }
+
+        // Variable pricing issue fix for Buy Now button.
+        $('.edd_download_purchase_form').on('click', 'input[type=radio]', function(e){
+            var $this = $(this),
+                elName = $this.attr('name'),
+                elVal = $this.val(),
+                targetEl = $('.buy-now'),
+                targetUrl = targetEl.attr('href');
+
+            var appendString = elName+'='+elVal;
+            var finalUrl = targetUrl.concat( '&', appendString );
+            targetEl.attr('href', finalUrl);
+        });
+
+        // tabs for product details page.
+        RESPONSIVEUI.responsiveTabs();
+
+        // Load more AJAX.
+        var clicked = false;
+        $doc.on('click', '.btn-load-item', function (e) {
+
+            e.preventDefault();
+
+            if (clicked) {
+                // we are already querying for data.
+                return false;
+            }
+
+            var nextPage = parseInt($(this).attr('data-next')),
+                maxPage = parseInt($(this).data('max')),
+                number = parseInt( $(this).data('num')),
+                cat = $(this).data('category'),
+            	$this = $(this),
+            	clicked = true;
+
+            $this.hide();
+            $this.parent('div').append('<img class="loader-gif" src="' + theme404Script.loader + '" alt="loader">');
+
+            if (nextPage && nextPage > maxPage) {
+                // the queried page num is greater than the limit.
+                $(this).hide();
+                return false;
+            }
+
+            var data = {
+                action: 'load_more_downloads',
+                page: nextPage,
+                category: cat,
+                perpage: number
+            };
+
+            $.ajax({
+                url: theme404Script.ajaxurl,
+                data: data,
+                method: 'POST',
+                success: function (res) {
+
+                    $('.loader-gif').remove();
+                    $('.template-thumnails').append(res.html);
+
+                    if (res.page) {
+                        $this.show();
+                        $this.attr('data-next', res.page);
+                    } else {
+                        $this.hide();
+                    }
+
+                    clicked = false;
+                }
+            });
+
+        });
+
+        // Custom FAQ accordion.
+        var wrapClass = '.faq-wrap',
+            $panelHead = $('.faq-head-panel');
+
+        $(wrapClass).not('.faq-active').find('.faq-body-panel').hide();
+
+        // Panel head click event
+        $doc.on('click', '.faq-head-panel', function (e) {
+
+            var $this = $(this),
+                $parent = $(this).parents(wrapClass);
+
+            if ($parent.hasClass('faq-active')) {
+                return;
+            }
+
+            $(wrapClass).find('.faq-body-panel').slideUp();
+            $(wrapClass).removeClass('faq-active');
+            $(wrapClass).find('i').removeClass('fa-caret-down').addClass('fa-caret-right');
+
+            $parent.addClass('faq-active');
+            $parent.find('i').removeClass('fa-caret-right').addClass('fa-caret-down');
+            $parent.find('.faq-body-panel').slideDown();
+
+        });
+
+        // Product landing page.
+        $doc.on('click', '.btn-landing-demo', function (e) {
+            e.preventDefault();
+
+            var sec = $(this).attr('href');
+            $('html, body').animate({
+                scrollTop: $(sec).offset().top,
+            }, 500);
+        });
+
+        function cookieElRemove() {
+            $('.cookie-message-wrap').remove();
+        }
+
+        // Cookies set.
+        $(document).on('click', '.btn-cookie', function (e) {
+            e.preventDefault();
+            var days = parseInt(theme404Script.creappear);
+            Cookies.set('theme404_policy', 1, {
+                expires: days
+            });
+            $('.cookie-message-wrap').fadeOut(400, 'swing', cookieElRemove);
+        });
+
+        // min length validation for license codes.
+        var errorShown = false;
+        $('input.min-length-30').on('change', function (e) {
+            var $el = $(this),
+                val = $(this).val();
+
+
+            if (val.length <= 29 && !errorShown) {
+                errorShown = true;
+                $el.after('<em class="message-error">Please enter valid license code.</em>');
+            } else {
+                if (val.length <= 29) {
+                    return;
+                } else {
+                    $('.message-error').remove();
+                    errorShown = false;
+                }
+            }
+        });
+
+    });
+
+    // When the window is completely loaded.
+    $(window).on('load', function () {
+
+        function initIsotope() {
+            // Isotope filter
+            var $el = $('.filter-grid'),
+                $grid;
+
+            if ($el.length) {
+                $grid = $el.isotope({
+                    itemSelector: '.grid-item',
+                    layoutMode: 'fitRows',
+                });
+            }
+
+            // Isotope filter.
+            var $filter = $('.filter');
+            $filter.on('click', 'li', function (e) {
+                $('.filter li').removeClass('btn-active');
+                var el = $(this).attr('data-filter');
+                $(this).addClass('btn-active');
+                $grid.isotope({
+                    filter: el
+                });
+            });
+        }
+        initIsotope();
+
+    });
+
+})(jQuery);

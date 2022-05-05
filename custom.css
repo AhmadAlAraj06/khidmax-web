@@ -1,0 +1,200 @@
+.blog-single-wrapper .btn {
+    display: inline-block
+}
+
+.blog-single-wrapper .btn a {
+    margin-right: 10px;
+}
+.post-content-full .entry-content p{
+	clear: both;
+}
+.edd-submit.button {
+    -webkit-appearance: inherit;
+    -moz-appearance: inherit;
+    appearance: inherit;
+    margin: 0 5px 0 0;
+}
+.post .edd_price_options.edd_multi_mode li, 
+.post .edd_price_options.edd_single_mode li,
+.post .edd_price_options.edd_multi_mode .edd_price_option_price, 
+.post .edd_price_options.edd_single_mode .edd_price_option_price  {
+    color: rgba(0,0,0,.7);
+}
+
+/* Blog Learn More and Live Demo Buttons */
+.learnmorebutton {
+    background-color: #0391ce;
+    border-radius: 6px;
+    border: 1px solid #599bb3;
+    display: inline-block;
+    cursor: pointer;
+    color: #fff;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight:bold;
+    padding: 6px 24px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #599bb3;
+    margin-right: 20px;
+}
+
+.learnmorebutton:hover {
+    color: #505739;
+}
+.learnmorebutton:active {
+	position:relative;
+	top:1px;
+}
+.livedemobutton {
+	background-color:#599bb3;
+	border-radius:6px;
+	border:1px solid #599bb3;
+	display:inline-block;
+	cursor:pointer;
+	color:#fff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #599bb3;
+}
+.livedemobutton:hover {
+	color: #505739;
+}
+. livedemobutton:active {
+	position:relative;
+	top:1px;
+}
+.nb-notice-outer-wrap-2934 .nb-notice-wrap {
+    z-index: 99999;
+}
+.nb-cta a {
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 100%;
+}
+
+/* Top Notice Bar */
+.nb-slide-textarea a{
+   margin-left: 10px;
+}
+
+/* Sidebar */
+ul.widget-most-recent,
+ul.widget-featured-download {
+    margin: 0;
+}
+ul.widget-most-recent li,
+ul.widget-featured-download li {
+    padding: 0;
+}
+ul.widget-most-recent li a.widget-download-title,
+ul.widget-featured-download li a.widget-download-title {
+    display : block
+}
+
+.demo .image-area {
+    position: relative;
+}
+
+.demo .label {
+    background-color: #CC185A;
+    color: #fff;
+    position: absolute;
+    z-index: 97;
+    width: 100px;
+    text-align: center;
+    font-weight: 500;
+    right: 0;
+    top: 12px;
+    line-height: 1.6;
+}
+.entry-content ul.dpsp-networks-btns-wrapper > li::after{
+    display: none;
+}
+.compare-table .fa {
+    font-size: 0;
+}
+.theme404_widget_recent_entries ul {
+    margin: 0;
+}
+.theme404_widget_recent_entries li.post {
+    padding: 0;
+    margin: 0 0 25px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+}
+.theme404_widget_recent_entries li.post> .widget-post--image,
+.theme404_widget_recent_entries li.post > .widget-post--information{
+    margin: 0;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+}
+.theme404_widget_recent_entries li.post > .widget-post--image {
+    min-width: 100px;
+    padding-right: 10px;
+}
+.theme404_widget_recent_entries li.post > .widget-post--information {
+    min-width: 67%;
+    min-width: calc(100% - 100px);
+    min-width: -webkit-calc(100% - 100px);
+}
+.theme404_widget_recent_entries li.post > .widget-post--information a {
+    line-height: 1.35;
+    display: inline-block;
+}
+.theme404_widget_recent_entries li.post > .widget-post--information .post-date {
+    font-size: 14px;
+}
+.theme-screenshots--wrap {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    margin: 0 -10px;
+}
+.theme-screenshots--wrap .preview{
+    margin: 0;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    min-width: 33.3333%;
+    padding: 0 10px;
+    margin-bottom: 15px;
+}
+.related-posts--inner{
+    margin: 0 -10px;
+}
+.related-posts--inner .post:nth-child(3n+1) {
+    clear: both;
+}
+.related-posts--inner .post {
+    width: 33.3333%;
+    float: left;
+    padding: 0 10px;
+}
+span.small.date {
+    font-size: 90%;
+    color: #383949;
+}
+.visible-mobile {
+    display: none;
+}
+
+/*
+.compare-table td i.fa {
+    text-indent: -999px;
+}*/
